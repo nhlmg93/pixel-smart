@@ -1,22 +1,27 @@
-const Canvas = () => {
+function Canvas() {
   let canvasRef: HTMLCanvasElement | undefined;
 
   return (
-    <canvas
-      ref={canvasRef}
-      class="w-screen h-screen fixed top-0 left-0"
-      width={window.innerWidth}
-      height={window.innerHeight}
-      onMouseDown={({ x, y }) => {
-        if (!canvasRef) return;
-        const ctx = canvasRef.getContext("2d")!;
-        ctx.fillStyle = "red";
-        ctx.fillRect(x - 75, y - 50, 150, 100);
-      }}
-    />
+    <div class="border border-black flex items-center justify-center h-screen">
+      <canvas
+        ref={canvasRef}
+        class="border border-black"
+        width={250}
+        height={250}
+        onMouseDown={(e) => {
+          if (!canvasRef) return;
+          const ctx = canvasRef.getContext("2d")!;
+          const rect = canvasRef.getBoundingClientRect();
+          const x = e.x - rect.left;
+          const y = e.y - rect.top;
+          ctx.fillStyle = "red";
+          ctx.fillRect(x - 25, y - 25, 50, 50);
+        }}
+      />
+    </div>
   );
-};
+}
 
-export const App = () => {
+export function App() {
   return <Canvas />;
-};
+}
